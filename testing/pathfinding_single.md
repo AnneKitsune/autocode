@@ -1,0 +1,2 @@
+I want you to implement an hexagonal grid library in rust where any tile can be set to either be blocked or not blocked. Then, I want you to implement a pathfinding algorithm that will find the shortest path between the start and end points, if any.
+Finally, I want you to write unit tests to confirm that the code works as expected both when finding and not finding a path, and also ensuring that the found path is the shortest.

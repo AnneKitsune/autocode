@@ -4,10 +4,12 @@
 # Files to edit in $2
 
 WEAK_MODEL="qwen_anne"
-STRONG_MODEL="qwq_anne"
+#STRONG_MODEL="qwq_anne"
+STRONG_MODEL="qwq_split"
 CLASSIFIER_MODEL="qwen_anne"
 REQUEST="$1"
 FILES="$2"
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 . /home/anne/.config/aider/env.sh
 rustup default stable
@@ -23,7 +25,7 @@ code() {
     # TODO fix issue where it might revert files during review fixup phase
     # if weak model succeeded at implementing the task but fails at following the review.
     
-    [ $run_weak -eq 1 ] && /home/anne/share/prog/tools/autocode2/coding.sh "ollama_chat/$WEAK_MODEL" "$1" "$FILES" || { [ $run_weak -eq 1 ] && run_weak=0 && git reset --hard;  /home/anne/share/prog/tools/autocode2/coding.sh "ollama_chat/$STRONG_MODEL" "$REQUEST" "$FILES" ; } || { echo "Failed to implement request. Quitting." && git reset --hard && exit 1; } && cargo fmt
+    [ $run_weak -eq 1 ] && "$SCRIPT_DIR"/coding.sh "ollama_chat/$WEAK_MODEL" "$1" "$FILES" || { [ $run_weak -eq 1 ] && run_weak=0 && git reset --hard;  "$SCRIPT_DIR"/coding.sh "ollama_chat/$STRONG_MODEL" "$REQUEST" "$FILES" ; } || { echo "Failed to implement request. Quitting." && git reset --hard && exit 1; } && cargo fmt
     #/home/anne/share/prog/tools/autocode2/coding.sh "ollama_chat/$STRONG_MODEL" "$REQUEST" "$FILES" || { echo "Failed to implement request. Quitting." && git reset --hard && exit 1; }
 }
 

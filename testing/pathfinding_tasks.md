@@ -1,0 +1,5 @@
+Implement a HexCoord struct using axial coordinates with methods to calculate distance to another hex and generate all neighboring hex positions, including unit tests for distance calculation and neighbor directions.
+Create a Grid struct that tracks blocked hex positions using a HashSet<HexCoord> with methods to block/unblock hexes and check if a hex is blocked, including unit tests for blocking functionality and grid bounds checking.
+Implement A* pathfinding algorithm in Grid that returns the shortest path (if exists) using hexagonal distances as heuristic, with unit tests for straight-line paths, blocked start/end cases, and paths requiring detours around blocked areas.
+Add path reconstruction and validation to the A* implementation with unit tests verifying path continuity, avoidance of blocked hexes, and comparison against known shortest path lengths.
+Implement edge case handling for empty paths and identical start/end points with unit tests for zero-length paths and impossible paths due to complete encapsulation by blocked hexes.

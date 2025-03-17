@@ -3,11 +3,13 @@
 # $2 prompt
 # $3 files
 
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+
 aider $3 -m "$2 Do not create new files." --model "$1"
 fix_runs=5
 test_exit=0
 
-timeout -v 10s /home/anne/share/prog/tools/autocode2/test_rust.sh 2>&1 | tee /tmp/rustoutput
+timeout -v 10s "$SCRIPT_DIR"/test_rust.sh 2>&1 | tee /tmp/rustoutput
 test_exit=$(cat /tmp/exitcode)
 success=1
 
@@ -21,8 +23,8 @@ else
         # prevent feeding links to aider, which would try to install playwright.
         sed -i 's/https//g;s/http//g' /tmp/rustoutput
         #aider src/lib.rs -m "Original prompt: $prompts \nErrors: $(cat /tmp/rustoutput). Fix the previous errors. Do not create new files."
-        aider $3 -m "Errors: $(cat /tmp/rustoutput). Fix the previous errors. Do not create new files." --model "$1"
-        timeout -v 10s /home/anne/share/prog/tools/autocode2/test_rust.sh 2>&1 | tee /tmp/rustoutput
+        aider $3 -m "Original prompt: $2. Errors: $(cat /tmp/rustoutput). Fix the previous errors. Do not create new files." --model "$1"
+        timeout -v 10s "$SCRIPT_DIR"/test_rust.sh 2>&1 | tee /tmp/rustoutput
         test_exit=$(cat /tmp/exitcode)
         if [ $test_exit -eq 0 ]; then
             fix_runs=0
