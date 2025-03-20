@@ -16,6 +16,7 @@ This might blow up your system if the AI model you use decides to generate broke
 - Aider
 - Access to an openai compatible api with a weak and strong model you can use. I recommend llama-swap.
 - Notification script (update in lib.sh manually. if you don't want one, replace it by `echo`)
+- jq
 
 ### Project-Feature-Plan-Task
 A project is composed of features.
