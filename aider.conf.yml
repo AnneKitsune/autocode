@@ -1,0 +1,17 @@
+# ~/.config/aider/aider.conf.yml
+model: openai/qwen_coder
+
+model-settings-file: ~/share/prog/tools/autocode2/aider.model.settings.yml
+
+editor-edit-format: diff
+code-theme: solarized-dark
+pretty: true
+auto-commits: false
+auto-lint: false
+#show-model-warnings: false
+max-chat-history-tokens: 999999 # disables slow summarization when I'm using wrapper scripts
+
+analytics-disable: true
+check-update: false
+
+yes-always: true
