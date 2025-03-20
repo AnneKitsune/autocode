@@ -6,6 +6,7 @@
 # $3 message
 # $4 api key (optional)
 
+content="$3"
 response=$(curl -s "$1/v1/chat/completions" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $4" \
@@ -14,7 +15,7 @@ response=$(curl -s "$1/v1/chat/completions" \
     \"messages\": [
       {
         \"role\": \"user\",
-        \"content\": \"$3\"
+        \"content\": \"$content\"
       }
     ]
   }")

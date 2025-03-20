@@ -35,8 +35,8 @@ for file in $plan_files; do
 
     # Step 2: Create and checkout new branch
     if ! git checkout -b "$plan_name" >/dev/null 2>&1; then
-        echo "Error: Branch '$plan_name' already exists or cannot be created. Skipping..."
-        continue
+        echo "Branch '$plan_name' already exists. Reusing..."
+        git checkout "$plan_name"
     fi
 
     # Step 3: List files not excluded by gitignore

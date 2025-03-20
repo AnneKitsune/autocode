@@ -1,7 +1,7 @@
 # ~/.config/aider/aider.conf.yml
 model: openai/qwen_coder
 
-model-settings-file: ~/share/prog/tools/autocode2/aider.model.settings.yml
+model-settings-file: ~/autocode/aider.model.settings.yml
 
 editor-edit-format: diff
 code-theme: solarized-dark
