@@ -6,7 +6,8 @@
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 . "${SCRIPT_DIR}"/lib.sh
 
-aider $3 -c "$AIDER_CONF" -m "$2 Do not create new files." --model "$1"
+echo "Running command: aider --config "$AIDER_CONF" -m \"$2 Do not create new files.\" --model \"$1\" $3"
+aider --config "$AIDER_CONF" -m "$2 Do not create new files." --model "$1" $3
 fix_runs=5
 test_exit=0
 
@@ -24,7 +25,7 @@ else
         # prevent feeding links to aider, which would try to install playwright.
         sed -i 's/https//g;s/http//g' /tmp/rustoutput
         #aider src/lib.rs -m "Original prompt: $prompts \nErrors: $(cat /tmp/rustoutput). Fix the previous errors. Do not create new files."
-        aider $3 -c "$AIDER_CONF" -m "Original prompt: $2. Errors: $(cat /tmp/rustoutput). Fix the previous errors. Do not create new files." --model "$1"
+        aider --config "$AIDER_CONF" -m "Original prompt: $2. Errors: $(cat /tmp/rustoutput). Fix the previous errors. Do not create new files." --model "$1" $3
         timeout -v 10s "$SCRIPT_DIR"/test_rust.sh 2>&1 | tee /tmp/rustoutput
         test_exit=$(cat /tmp/exitcode)
         if [ $test_exit -eq 0 ]; then
@@ -32,6 +33,7 @@ else
             success=0
         else
             fix_runs=$((fix_runs - 1))
+            echo "Fix run failed. Tries left: $fix_runs. Model: $1"
         fi
     done
 fi

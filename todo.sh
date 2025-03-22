@@ -6,5 +6,5 @@
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 . "${SCRIPT_DIR}"/lib.sh
 
-aider todo.md -c "$AIDER_CONF" -m "Do not create new files. Modify the provided todo.md file to reflect the following request: $1" --model "$STRONG_MODEL"
+aider --config "$AIDER_CONFIG" -m "Do not create new files. Modify the provided todo.md file to reflect the following request: $1" --model "$STRONG_MODEL" todo.md
 

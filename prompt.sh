@@ -20,5 +20,7 @@ response=$(curl -s "$1/v1/chat/completions" \
     ]
   }")
 
-#echo "raw: $response"
-echo "$response" | jq -r '.choices[0].message.content'
+echo "$content" > /tmp/debug_request.txt
+echo "$response" > /tmp/debug_response.json
+sed ':a;N;$!ba;s/\n/\\n/g' /tmp/debug_response.json > /tmp/debug_response_escaped.json
+jq -r '.choices[0].message.content' /tmp/debug_response_escaped.json

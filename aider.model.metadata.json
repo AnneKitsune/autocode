@@ -1,0 +1,29 @@
+{
+    "openai/qwen_coder": {
+        "max_tokens": 32000,
+        "max_input_tokens": 32000,
+        "max_output_tokens": 32000,
+        "input_cost_per_token": 0.00000001,
+        "output_cost_per_token": 0.00000001,
+        "litellm_provider": "openai",
+        "mode": "chat"
+    },
+    "openai/qwq": {
+        "max_tokens": 32000,
+        "max_input_tokens": 32000,
+        "max_output_tokens": 32000,
+        "input_cost_per_token": 0.00000001,
+        "output_cost_per_token": 0.00000001,
+        "litellm_provider": "openai",
+        "mode": "chat"
+    },
+    "openai/r1": {
+        "max_tokens": 16000,
+        "max_input_tokens": 16000,
+        "max_output_tokens": 16000,
+        "input_cost_per_token": 0.00000001,
+        "output_cost_per_token": 0.00000001,
+        "litellm_provider": "openai",
+        "mode": "chat"
+    }
+}

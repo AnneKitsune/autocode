@@ -18,10 +18,10 @@ while read -r task <&3; do
 
     previous_changes="$(git log -n 5 --pretty=format:"%s" | sed 's/autocode: //')"
 
-    "$SCRIPT_DIR"/run.sh "Previous Changes: $previous_changes. Guidelines: $(cat "$3") I want you to implement the following task: $task. In addition, make sure that src/lib.rs or src/main.rs contains mod filename for any file (or folder containing the file) you modify." "$2" || exit 1 && \
+    "$SCRIPT_DIR"/run.sh "Previous Changes: $previous_changes. Guidelines: $(cat "$3")\nI want you to implement the following task: $task.\nIn addition, make sure that src/lib.rs or src/main.rs contains `mod filename;` for any file (or folder containing the file) you modify." "$2" || exit 1 && \
     git diff -U30 > /tmp/diff && \
     echo "Generating commit message using $WEAK_MODEL..." && \
-    run_ai "$WEAK_MODEL" "Given the following git diff, write a short commit message explaining the changes. $(cat /tmp/diff)" > /tmp/commit_msg && \
+    "$SCRIPT_DIR"/run_ai.sh "$WEAK_MODEL" "Given the following git diff, write a short commit message explaining the changes. $(cat /tmp/diff)" > /tmp/commit_msg && \
     git add . && \
     git commit -m "autocode: $(tr -d '\n' < /tmp/commit_msg | sed 's/\"/\\\"/g;s/\`//g')"
 done 3< "$1"

@@ -3,8 +3,10 @@
   edit_format: whole
   extra_params:
     num_ctx: 32000
+    max_tokens: 32000
 - name: openai/qwen_coder
   use_repo_map: true
   edit_format: whole
   extra_params:
     num_ctx: 32000
+    max_tokens: 32000

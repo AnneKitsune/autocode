@@ -1,9 +1,10 @@
 # ~/.config/aider/aider.conf.yml
-model: openai/qwen_coder
+model: openai/qwq
 
-model-settings-file: ~/autocode/aider.model.settings.yml
+model-settings-file: /home/anne/autocode/aider.model.settings.yml
+model-metadata-file: /home/anne/autocode/aider.model.metadata.json
 
-editor-edit-format: diff
+editor-edit-format: whole
 code-theme: solarized-dark
 pretty: true
 auto-commits: false

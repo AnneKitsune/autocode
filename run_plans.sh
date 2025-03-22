@@ -46,7 +46,7 @@ for file in $plan_files; do
     tasks="$(cat "$file")"
     query="Guidelines: $guidelines Plan: $plan_name Tasks: $tasks Files present: $files_list Please return a space-separated list of files that need to be modified to implement this plan and nothing else. You may specify files not in the input list and they will be created, if appropriate. Also include files that you think contain information necessary to implement the tasks. Always include src/lib.rs if writing a library and src/main.rs if writing an executable, but never include both at the same time. Never create tests.rs files or a tests directory."
 
-    files_to_modify="$(run_ai "$WEAK_MODEL" "$query" | sed '/```*/d')"
+    files_to_modify="$("$SCRIPT_DIR"/run_ai.sh "$WEAK_MODEL" "$query" | sed '/```*/d')"
 
     # Step 5: Execute run_plan.sh
     "$SCRIPT_DIR/run_plan.sh" "$file" "$files_to_modify" "$guidelines"

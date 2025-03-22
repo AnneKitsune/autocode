@@ -25,14 +25,10 @@ let Some(a) = a_opt else { return error };
 mod file_or_folder;
 pub use file_or_folder::*;
 ```
-8. Never, ever use omit code by writing things like "// rest of the existing code". Always include the full code when doing changes.
+8. Never, ever omit code by writing things like "// rest of the existing code". Always include the full code when doing changes.
 9. Always include the unit tests in the same files as the features, never as separate files.
-10. If modifying a file, respect the following format:
-src/path/to/file/name.rs
-```language
-code here
-```
-11. Do not explain the code after you are done writing it.
-12. If adding or modifying unit tests to a file, make sure there is a corresponding `mod file.rs` entry in `src/lib.rs` or `src/main.rs`, so that the test does run.
-13. Take some time to think about which pieces of code should go into which files. Don't blindly add code to the biggest file.
-14. You only need to write to files you plan to modify. You can ignore files you don't plan to modify.
+10. Do not explain the code after you are done writing it.
+11. If adding or modifying unit tests to a file, make sure there is a corresponding `mod file.rs` entry in `src/lib.rs` or `src/main.rs`, so that the test does run.
+12. Think carefully about which file your code should be added to and makes the most sense.
+13. Do not create new files. Only modify files you are given, including empty files.
+14. Avoid modifying code while you are thinking. Only do code modifications at the end after your thinking.
