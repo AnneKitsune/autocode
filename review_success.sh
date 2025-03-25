@@ -9,11 +9,16 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 BRANCH="$1"
 
 git checkout main
+if [[ -z "$(git branch --list "$BRANCH")" ]]; then
+    echo "Branch $BRANCH does not exist. Aborting..."
+    exit 1
+fi
 if git merge --no-ff "$BRANCH" -m "automerge: $BRANCH"; then
     # Merge succeeded
     if "${SCRIPT_DIR}"/test_rust.sh; then
+        git branch -d "$BRANCH"
+        git push origin --delete "$BRANCH"
         git push origin main
-        git branch -D "$BRANCH"
         echo "Merge of $BRANCH successful."
         $discord_send "### Merge of $BRANCH successful."
         exit 0

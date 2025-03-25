@@ -4,7 +4,7 @@
 
 export WEAK_MODEL="qwen_coder"
 export WEAK_MODEL_URL=""
-export STRONG_MODEL="r1" # qwq
+export STRONG_MODEL="qwq" # qwq,r1,qwq_preview
 export STRONG_MODEL_URL=""
 export CLASSIFIER_MODEL="qwen_coder"
 export CLASSIFIER_MODEL_URL=""

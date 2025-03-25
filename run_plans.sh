@@ -13,6 +13,7 @@ plan_files="$1"
 guidelines="$2"
 plan_count="$(echo "$plan_files" | wc -w)"
 
+echo "Starting to implement $(pwd). Plans queued: $plan_count"
 $discord_send "# Starting to implement $(pwd). Plans queued: $plan_count"
 
 current_plan=0
@@ -44,9 +45,11 @@ for file in $plan_files; do
 
     # Step 4: Generate AI query and get files to modify
     tasks="$(cat "$file")"
-    query="Guidelines: $guidelines Plan: $plan_name Tasks: $tasks Files present: $files_list Please return a space-separated list of files that need to be modified to implement this plan and nothing else. You may specify files not in the input list and they will be created, if appropriate. Also include files that you think contain information necessary to implement the tasks. Always include src/lib.rs if writing a library and src/main.rs if writing an executable, but never include both at the same time. Never create tests.rs files or a tests directory."
+    query="Guidelines: $(cat $guidelines) Plan: $plan_name Tasks: $tasks Files present: $files_list Please return a space-separated list of files that need to be modified to implement this plan and nothing else. You may specify files not in the input list and they will be created, if appropriate. Also include files that you think contain information necessary to implement the tasks. Always include src/lib.rs if writing a library and src/main.rs if writing an executable, but never include both at the same time. Never create tests.rs files or a tests directory. If you include files from a directory under src, make sure to also add the corresponding mod.rs file."
 
+    echo "Using ai to determine list of files to edit."
     files_to_modify="$("$SCRIPT_DIR"/run_ai.sh "$WEAK_MODEL" "$query" | sed '/```*/d')"
+    echo "Got list of files: $files_to_modify"
 
     # Step 5: Execute run_plan.sh
     "$SCRIPT_DIR/run_plan.sh" "$file" "$files_to_modify" "$guidelines"
@@ -66,6 +69,7 @@ for file in $plan_files; do
         successes=$((successes + 1))
         echo "[$current_plan/$plan_count] Successfully implemented $plan_name in $(pwd)"
         $discord_send "[$current_plan/$plan_count] Successfully implemented $plan_name in $(pwd)"
+        git push --all
     fi
 done
 
